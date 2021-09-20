@@ -178,8 +178,8 @@
         "tags": [
           "Macapa"
         ],
-        "summary": "Upload a new contact",
-        "description": "Upload a new contact",
+        "summary": "Insert multiple contacts via json file",
+        "description": "Insert multiple contacts via json file",
         "security": [
           {
             "bearerAuth": []
@@ -375,8 +375,8 @@
         "tags": [
           "Varejão"
         ],
-        "summary": "Upload a new contact",
-        "description": "Upload a new contact",
+        "summary": "Insert multiple contacts via json file",
+        "description": "Insert multiple contacts via json file",
         "security": [
           {
             "bearerAuth": []
