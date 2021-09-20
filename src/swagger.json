@@ -1,0 +1,434 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MyClients Documentation",
+    "description": "This is an API MyClients",
+    "version": "1.0.0",
+    "contact": {
+      "email": "bernardopiero12330@gmail.com",
+      "name": "Bernardo Pieropan Neto"
+    }
+  },
+  "paths": {
+    "/macapa": {
+      "post": {
+        "tags": [
+          "Macapa"
+        ],
+        "summary": "Create a new contact",
+        "description": "Create a new contact",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "cellphone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Bernardo Pieropan Neto",
+                  "cellphone": "5532998105275"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Contanct Already Exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Macapa"
+        ],
+        "summary": "List all contacts",
+        "description": "List all contacts",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "Content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "cellphone": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/macapa/{id}": {
+      "put": {
+        "tags": [
+          "Macapa"
+        ],
+        "summary": "Update existing contact",
+        "description": "Update existing contact",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "contact id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "cellphone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Bernardo Pieropan Neto",
+                  "cellphone": "5532998105275"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Macapa"
+        ],
+        "summary": "Delete existing contact",
+        "description": "Delete existing contact",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "contact id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Deleted"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/macapa/import": {
+      "post": {
+        "tags": [
+          "Macapa"
+        ],
+        "summary": "Upload a new contact",
+        "description": "Upload a new contact",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/varejao": {
+      "post": {
+        "tags": [
+          "Varejão"
+        ],
+        "summary": "Create a new contact",
+        "description": "Create a new contact",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "cellphone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Bernardo Pieropan Neto",
+                  "cellphone": "5532998105275"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Contanct Already Exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Varejão"
+        ],
+        "summary": "List all contacts",
+        "description": "List all contacts",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "Content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "cellphone": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/varejao/{id}": {
+      "put": {
+        "tags": [
+          "Varejão"
+        ],
+        "summary": "Update existing contact",
+        "description": "Update existing contact",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "contact id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "cellphone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Bernardo Pieropan Neto",
+                  "cellphone": "5532998105275"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Varejão"
+        ],
+        "summary": "Delete existing contact",
+        "description": "Delete existing contact",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "contact id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Deleted"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/varejao/import": {
+      "post": {
+        "tags": [
+          "Varejão"
+        ],
+        "summary": "Upload a new contact",
+        "description": "Upload a new contact",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "tags": [
+          "Session"
+        ],
+        "summary": "Authentication user",
+        "description": "Authentication user",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
