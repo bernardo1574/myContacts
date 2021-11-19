@@ -12,13 +12,12 @@ class CreateClientUseCase {
   constructor(
     @inject('ClientsRepositoryVarejao')
     private clientRepository: IClientsRepository,
-  ) {}
+  ) { }
 
   async execute({ name, cellphone }: IRequest): Promise<void> {
     const clientExists = await this.clientRepository.findByCellphone(cellphone);
     if (clientExists) {
-      // throw new AppError(`Cellphone already exists`);
-      return;
+      throw new AppError(`Cellphone already exists`);
     }
 
     this.clientRepository.create({ name, cellphone });

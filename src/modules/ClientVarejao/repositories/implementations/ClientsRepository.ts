@@ -1,4 +1,4 @@
-import { Repository, getRepository, getConnection } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 import { Client } from '../../entities/Client';
 import { IClientsRepository, ICreateClientDTO } from '../IClientsRepository';
 

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
-@Entity('contacts')
+@Entity({ database: 'connection2', name: 'contacts' })
 class Client {
   @PrimaryColumn()
   id?: string;

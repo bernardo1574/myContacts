@@ -1,17 +1,38 @@
-{
-  "type": "postgres",
-  "port": 5432,
-  "host": "localhost",
-  "username": "admin",
-  "password": "admin",
-  "database": "varejao",
-  "migrations": [
-    "./src/database/migrations/clientVarejao/*.ts"
-  ],
-  "entities": [
-    "./src/modules/ClientVarejao/entities/*.ts"
-  ],
-  "cli": {
-    "migrationsDir": "./src/database/migrations/clientVarejao"
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "port": 5432,
+    "host": "localhost",
+    "username": "admin",
+    "password": "admin",
+    "database": "varejao",
+    "migrations": [
+      "./src/database/migrations/clientVarejao/*.ts"
+    ],
+    "entities": [
+      "./src/modules/ClientVarejao/entities/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/database/migrations/clientVarejao"
+    }
+  },
+  {
+    "name": "connection2",
+    "type": "mysql",
+    "port": 3306,
+    "host": "localhost",
+    "username": "admin",
+    "password": "admin",
+    "database": "macapa",
+    "migrations": [
+      "./src/database/migrations/clientMacapa/*.ts"
+    ],
+    "entities": [
+      "./src/modules/ClientMacapa/entities/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/database/migrations/clientMacapa"
+    }
   }
-}
+]
