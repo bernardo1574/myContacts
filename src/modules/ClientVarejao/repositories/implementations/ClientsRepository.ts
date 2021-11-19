@@ -1,23 +1,23 @@
-import { Repository, getRepository, getConnection } from 'typeorm';
-import { Client } from '../../entities/Client';
+import { Repository, getRepository } from 'typeorm';
+import { ClientVarejao } from '../../entities/ClientVarejao';
 import { IClientsRepository, ICreateClientDTO } from '../IClientsRepository';
 
 class ClientsRepository implements IClientsRepository {
-  private repository: Repository<Client>;
+  private repository: Repository<ClientVarejao>;
 
   constructor() {
-    this.repository = getRepository(Client);
+    this.repository = getRepository(ClientVarejao);
   }
 
-  async findByCellphone(cellphone: string): Promise<Client> {
+  async findByCellphone(cellphone: string): Promise<ClientVarejao> {
     const client = await this.repository.findOne({ cellphone });
     return client;
   }
-  async list(): Promise<Client[]> {
+  async list(): Promise<ClientVarejao[]> {
     const clients = await this.repository.find();
     return clients;
   }
-  async createMultiple(contacts: Client[]): Promise<void> {
+  async createMultiple(contacts: ClientVarejao[]): Promise<void> {
     const clients = this.repository.create(contacts);
 
     await this.repository.save(clients);

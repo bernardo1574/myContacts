@@ -8,7 +8,7 @@ class CreateClientController {
 
     const createClientUseCase = container.resolve(CreateClientUseCase);
 
-    createClientUseCase.execute({ name, cellphone });
+    await createClientUseCase.execute({ name, cellphone });
 
     return res.status(201).send();
   }

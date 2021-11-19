@@ -1,39 +1,44 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated';
-import { createClientController } from '../modules/ClientMacapa/useCases/createClient';
-import { deleteCLientController } from '../modules/ClientMacapa/useCases/DeleteClient';
-import { updateClientController } from '../modules/ClientMacapa/useCases/UpdateClient';
-import { listClientController } from '../modules/ClientMacapa/useCases/listClient';
-import { importClientController } from '../modules/ClientMacapa/useCases/ImportClient';
+import { CreateClientController } from '../modules/ClientMacapa/useCases/createClient/CreateClientController';
+import { DeleteClientController } from '../modules/ClientMacapa/useCases/DeleteClient/DeleteClientController';
+import { UpdateClientController } from '../modules/ClientMacapa/useCases/UpdateClient/UpdateCLientController';
+import { ListClientController } from '../modules/ClientMacapa/useCases/listClient/ListClientController';
+import { ImportClientController } from '../modules/ClientMacapa/useCases/ImportClient/ImportClientController';
 
 const upload = multer({
   storage: multer.memoryStorage(),
 });
+const createClientController = new CreateClientController();
+const updateClientController = new UpdateClientController();
+const deleteClientController = new DeleteClientController();
+const listClientController = new ListClientController();
+const importClientController = new ImportClientController();
 
 const clientMacapaRoutes = Router();
 
-clientMacapaRoutes.post('/', EnsureAuthenticated, (request, response) =>
-  createClientController.handle(request, response),
+clientMacapaRoutes.post(
+  '/',
+  EnsureAuthenticated,
+  createClientController.handle,
 );
-
-clientMacapaRoutes.put('/:id', EnsureAuthenticated, (request, response) =>
-  updateClientController.handle(request, response),
+clientMacapaRoutes.put(
+  '/:id',
+  EnsureAuthenticated,
+  updateClientController.handle,
 );
-
-clientMacapaRoutes.get('/', EnsureAuthenticated, (request, response) =>
-  listClientController.handle(request, response),
+clientMacapaRoutes.get('/', EnsureAuthenticated, listClientController.handle);
+clientMacapaRoutes.delete(
+  '/:id',
+  EnsureAuthenticated,
+  deleteClientController.handle,
 );
-
-clientMacapaRoutes.delete('/:id', EnsureAuthenticated, (request, response) =>
-  deleteCLientController.handle(request, response),
-);
-
 clientMacapaRoutes.post(
   '/import',
   EnsureAuthenticated,
   upload.single('file'),
-  (request, response) => importClientController.handle(request, response),
+  importClientController.handle,
 );
 
 export { clientMacapaRoutes };

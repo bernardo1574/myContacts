@@ -1,14 +1,18 @@
+import { inject, injectable } from 'tsyringe';
 import { IClientsRepository } from '../../repositories/IClientsRepository';
 
 interface IRequest {
   id: string;
 }
-
+@injectable()
 class DeleteClientUseCase {
-  constructor(private clientRepository: IClientsRepository) {}
+  constructor(
+    @inject('ClientsRepositoryMacapa')
+    private clientRepository: IClientsRepository,
+  ) { }
 
-  execute({ id }: IRequest): void {
-    this.clientRepository.delete(id);
+  async execute({ id }: IRequest): Promise<void> {
+    await this.clientRepository.delete(id);
   }
 }
 

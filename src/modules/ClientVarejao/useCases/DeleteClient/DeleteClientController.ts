@@ -6,7 +6,7 @@ class DeleteClientController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const deleteClientUseCase = container.resolve(DeleteClientUseCase);
-    deleteClientUseCase.execute({ id });
+    await deleteClientUseCase.execute({ id });
     return res.status(201).send();
   }
 }

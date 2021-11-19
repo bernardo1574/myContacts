@@ -1,8 +1,8 @@
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity('contacts')
-class Client {
+class ClientMacapa {
   @PrimaryColumn()
   id?: string;
 
@@ -18,5 +18,4 @@ class Client {
     }
   }
 }
-
-export { Client };
+export { ClientMacapa };

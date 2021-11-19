@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { IClientsRepository } from '../../repositories/IClientsRepository';
 
 interface IRequest {
@@ -5,15 +6,19 @@ interface IRequest {
   cellphone: string;
   id: string;
 }
+@injectable()
 class UpdateClientUseCase {
-  constructor(private clientsRepository: IClientsRepository) {}
-  execute({ cellphone, id, name }: IRequest): void {
+  constructor(
+    @inject('ClientsRepositoryMacapa')
+    private clientsRepository: IClientsRepository,
+  ) { }
+  async execute({ cellphone, id, name }: IRequest): Promise<void> {
     const client = {
       cellphone: this.clientsRepository.maskPhone(cellphone),
       name: name.toUpperCase(),
       id,
     };
-    this.clientsRepository.update(client);
+    await this.clientsRepository.update(client);
   }
 }
 

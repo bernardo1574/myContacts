@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { ClientsRepository } from '../../repositories/implementations/ClientsRepository';
 
 interface IJsonContacts {
@@ -8,21 +9,23 @@ interface IJsonContacts {
 interface IJsonParser {
   contacts: IJsonContacts[];
 }
-class ImportClientUseCase {
-  constructor(private clientRepository: ClientsRepository) {}
 
-  execute(file: Express.Multer.File): void {
+@injectable()
+class ImportClientUseCase {
+  constructor(
+    @inject('ClientsRepositoryMacapa')
+    private clientRepository: ClientsRepository,
+  ) { }
+
+  async execute(file: Express.Multer.File): Promise<void> {
     const jsonParser: IJsonParser = JSON.parse(file.buffer.toString());
-    jsonParser.contacts.forEach(contact => {
-      const { name, cellphone } = contact;
-      const client = {
-        name: name.toUpperCase(),
-        cellphone: this.clientRepository.maskPhone(cellphone),
+    const contacts = jsonParser.contacts.map(contact => {
+      return {
+        name: contact.name.toUpperCase(),
+        cellphone: this.clientRepository.maskPhone(contact.cellphone),
       };
-      if (!this.clientRepository.findByCellphone(client.cellphone)) {
-        this.clientRepository.create(client);
-      }
     });
+    await this.clientRepository.createMultiple(contacts);
   }
 }
 export { ImportClientUseCase };

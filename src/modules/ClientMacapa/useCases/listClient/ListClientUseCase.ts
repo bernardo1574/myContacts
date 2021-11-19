@@ -1,11 +1,17 @@
-import { Client } from '../../entities/Client';
+import { inject, injectable } from 'tsyringe';
+import { ClientMacapa } from '../../entities/ClientMacapa';
 import { ClientsRepository } from '../../repositories/implementations/ClientsRepository';
 
+@injectable()
 class ListClientUseCase {
-  constructor(private clientRepository: ClientsRepository) {}
+  constructor(
+    @inject('ClientsRepositoryMacapa')
+    private clientRepository: ClientsRepository,
+  ) { }
 
-  execute(): Client[] {
-    return this.clientRepository.list();
+  async execute(): Promise<ClientMacapa[]> {
+    const allCLients = await this.clientRepository.list();
+    return allCLients;
   }
 }
 export { ListClientUseCase };

@@ -1,12 +1,12 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { ImportClientUseCase } from './ImportClientUseCase';
 
 class ImportClientController {
-  constructor(private importClientUseCase: ImportClientUseCase) {}
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { file } = req;
-
-    this.importClientUseCase.execute(file);
+    const importClientUseCase = container.resolve(ImportClientUseCase);
+    await importClientUseCase.execute(file);
 
     return res.status(201).send();
   }

@@ -1,11 +1,12 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { DeleteClientUseCase } from './DeleteClientUseCase';
 
 class DeleteClientController {
-  constructor(private deleteClientUseCase: DeleteClientUseCase) {}
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    this.deleteClientUseCase.execute({ id });
+    const deleteClientUseCase = container.resolve(DeleteClientUseCase);
+    await deleteClientUseCase.execute({ id });
     return res.status(201).send();
   }
 }

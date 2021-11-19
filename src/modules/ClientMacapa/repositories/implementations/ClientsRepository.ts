@@ -1,14 +1,16 @@
-import { Client } from '../../entities/Client';
-
+import { Repository, getRepository } from 'typeorm';
+import { ClientMacapa } from '../../entities/ClientMacapa';
 import { IClientsRepository, ICreateClientDTO } from '../IClientsRepository';
 
 class ClientsRepository implements IClientsRepository {
-  private clients: Client[];
+  private repository: Repository<ClientMacapa>;
 
-  private static INSTANCE: ClientsRepository;
-
-  private constructor() {
-    this.clients = [];
+  constructor() {
+    this.repository = getRepository(ClientMacapa);
+  }
+  async list(): Promise<ClientMacapa[]> {
+    const clients = await this.repository.find();
+    return clients;
   }
   maskPhone(cellphone: string): string {
     const value = cellphone
@@ -17,38 +19,26 @@ class ClientsRepository implements IClientsRepository {
     return `+${value[1]} (${value[2]}) ${value[3]}-${value[4]}`;
   }
 
-  public static getInstance(): ClientsRepository {
-    if (!ClientsRepository.INSTANCE) {
-      ClientsRepository.INSTANCE = new ClientsRepository();
-    }
-    return ClientsRepository.INSTANCE;
+  async findByCellphone(cellphone: string): Promise<ClientMacapa> {
+    const client = await this.repository.findOne({ where: { cellphone } });
+    return client;
   }
 
-  findByCellphone(cellphone: string): Client {
-    return this.clients.find(c => c.cellphone === cellphone);
-  }
-  list(): Client[] {
-    return this.clients;
-  }
-  create({ name, cellphone }: ICreateClientDTO): void {
-    const clientVarejao: Client = new Client();
-    Object.assign(clientVarejao, {
-      name,
-      cellphone,
-      created_at: new Date(),
-    });
+  async createMultiple(contacts: ClientMacapa[]): Promise<void> {
+    const clients = this.repository.create(contacts);
 
-    this.clients.push(clientVarejao);
+    await this.repository.save(clients);
   }
-  update({ name, cellphone, id }: ICreateClientDTO): void {
-    const index = this.clients.findIndex(index => index.id === id);
+  async create({ name, cellphone }: ICreateClientDTO): Promise<void> {
+    const client = this.repository.create({ name, cellphone });
 
-    this.clients[index].name = name;
-    this.clients[index].cellphone = cellphone;
+    await this.repository.save(client);
   }
-  delete(id: string): void {
-    const index = this.clients.findIndex(index => index.id === id);
-    this.clients.splice(index, 1);
+  async update({ name, cellphone, id }: ICreateClientDTO): Promise<void> {
+    await this.repository.update({ id }, { name, cellphone });
+  }
+  async delete(id: string): Promise<void> {
+    await this.repository.delete({ id });
   }
 }
 export { ClientsRepository };
