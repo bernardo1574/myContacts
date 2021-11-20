@@ -37,7 +37,7 @@ clientVarejaoRoutes.delete(
 );
 clientVarejaoRoutes.post(
   '/import',
-  // EnsureAuthenticated,
+  EnsureAuthenticated,
   upload.single('file'),
   importClientController.handle,
 );
